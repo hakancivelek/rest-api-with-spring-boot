@@ -1,7 +1,8 @@
 package com.hakancivelek.product_api.controller;
 
-import com.hakancivelek.product_api.dto.ProductRequest;
+import com.hakancivelek.product_api.dto.CreateProductRequest;
 import com.hakancivelek.product_api.dto.ProductResponse;
+import com.hakancivelek.product_api.dto.UpdateRequestBody;
 import jakarta.validation.Valid;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -28,32 +29,28 @@ public class ProductController {
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<ProductResponse>> list() {
-        List<EntityModel<ProductResponse>> productsResponse = products.values().stream()
-                .map(this::toModel)
-                .toList();
-        return CollectionModel.of(productsResponse,
-                linkTo(methodOn(ProductController.class).list()).withSelfRel());
+    public CollectionModel<EntityModel<ProductResponse>> getAll() {
+        List<EntityModel<ProductResponse>> productsResponse = products.values().stream().map(this::toModel).toList();
+        return CollectionModel.of(productsResponse, linkTo(methodOn(ProductController.class).getAll()).withSelfRel());
     }
 
     @PostMapping
-    public ResponseEntity<EntityModel<ProductResponse>> create(@Valid @RequestBody ProductRequest productRequest) {
+    public ResponseEntity<EntityModel<ProductResponse>> create(@Valid @RequestBody CreateProductRequest createProductRequest) {
         String id = UUID.randomUUID().toString();
-        ProductResponse product = new ProductResponse(id, productRequest.name(), productRequest.price());
+        ProductResponse product = new ProductResponse(id, createProductRequest.name(), createProductRequest.price());
         products.put(id, product);
 
         EntityModel<ProductResponse> entityModel = toModel(product);
-        return ResponseEntity.created(linkTo(methodOn(ProductController.class).get(id)).toUri())
-                .body(entityModel);
+        return ResponseEntity.created(linkTo(methodOn(ProductController.class).get(id)).toUri()).body(entityModel);
     }
 
     @PutMapping("/{id}")
-    public EntityModel<ProductResponse> update(@PathVariable String id, @RequestBody ProductRequest productRequest) {
+    public EntityModel<ProductResponse> update(@PathVariable String id, @RequestBody UpdateRequestBody updateRequestBody) {
         if (!products.containsKey(id)) {
             throw new NoSuchElementException("Product not found");
         }
 
-        ProductResponse newProduct = new ProductResponse(id, productRequest.name(), productRequest.price());
+        ProductResponse newProduct = new ProductResponse(id, updateRequestBody.name(), updateRequestBody.price());
         products.put(id, newProduct);
         return toModel(newProduct);
     }
@@ -69,8 +66,6 @@ public class ProductController {
 
 
     private EntityModel<ProductResponse> toModel(ProductResponse product) {
-        return EntityModel.of(product,
-                linkTo(methodOn(ProductController.class).get(product.id())).withSelfRel(),
-                linkTo(methodOn(ProductController.class).list()).withRel("products"));
+        return EntityModel.of(product, linkTo(methodOn(ProductController.class).get(product.id())).withSelfRel(), linkTo(methodOn(ProductController.class).getAll()).withRel("products"), linkTo(methodOn(ProductController.class).update(product.id(), null)).withRel("update"), linkTo(methodOn(ProductController.class).delete(product.id())).withRel("delete"));
     }
 }
