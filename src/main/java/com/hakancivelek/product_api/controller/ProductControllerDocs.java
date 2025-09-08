@@ -88,10 +88,10 @@ public interface ProductControllerDocs {
     default EntityModel<ProductResponse> toModel(ProductResponse product) {
         return EntityModel.of(
                 product,
-                linkTo(methodOn(ProductControllerDocs.class).get(product.id())).withSelfRel(),
-                linkTo(methodOn(ProductControllerDocs.class).getAll()).withRel("products"),
-                linkTo(methodOn(ProductControllerDocs.class).update(product.id(), null)).withRel("update"),
-                linkTo(methodOn(ProductControllerDocs.class).delete(product.id())).withRel("delete")
+                linkTo(methodOn(ProductController.class).get(product.id())).withSelfRel(),
+                linkTo(methodOn(ProductController.class).getAll()).withRel("products"),
+                linkTo(methodOn(ProductController.class).update(product.id(), null)).withRel("update"),
+                linkTo(methodOn(ProductController.class).delete(product.id())).withRel("delete")
         );
     }
 }

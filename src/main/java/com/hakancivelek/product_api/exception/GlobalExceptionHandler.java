@@ -17,6 +17,9 @@ public class GlobalExceptionHandler {
         exception.getBindingResult().getFieldErrors().forEach(fieldError -> {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         });
+        exception.getBindingResult().getGlobalErrors().forEach(globalError -> {
+            errors.put(globalError.getObjectName(), globalError.getDefaultMessage());
+        });
         return ResponseEntity.badRequest().body(errors);
     }
 }
