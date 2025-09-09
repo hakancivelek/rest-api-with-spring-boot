@@ -1,4 +1,4 @@
-package com.hakancivelek.product_api.dto;
+package com.hakancivelek.product.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -9,6 +9,9 @@ public record UpdateRequestBody(
         @NotBlank(message = "Name cannot be blank")
         String name,
         @Min(value = 0, message = "Price must be greater than or equal to zero")
-        BigDecimal price
+        BigDecimal price,
+        String description,
+        String sku,
+        String barcode
 ) {
 }

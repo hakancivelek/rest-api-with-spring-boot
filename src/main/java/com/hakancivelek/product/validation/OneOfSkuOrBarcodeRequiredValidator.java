@@ -1,6 +1,6 @@
-package com.hakancivelek.product_api.validation;
+package com.hakancivelek.product.validation;
 
-import com.hakancivelek.product_api.dto.CreateProductRequest;
+import com.hakancivelek.product.dto.CreateProductRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -9,7 +9,9 @@ public class OneOfSkuOrBarcodeRequiredValidator implements ConstraintValidator<O
     @Override
     public boolean isValid(CreateProductRequest createProductRequest, ConstraintValidatorContext context) {
         if (createProductRequest == null) return false;
-        return (createProductRequest.sku() != null && !createProductRequest.sku().isBlank()) ||
-                (createProductRequest.barcode() != null && !createProductRequest.barcode().isBlank());
+        boolean hasSku = createProductRequest.sku() != null && !createProductRequest.sku().isBlank();
+        boolean hasBarcode = createProductRequest.barcode() != null && !createProductRequest.barcode().isBlank();
+
+        return hasSku || hasBarcode;
     }
 }

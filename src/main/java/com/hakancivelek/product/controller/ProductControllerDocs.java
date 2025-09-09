@@ -1,8 +1,8 @@
-package com.hakancivelek.product_api.controller;
+package com.hakancivelek.product.controller;
 
-import com.hakancivelek.product_api.dto.CreateProductRequest;
-import com.hakancivelek.product_api.dto.ProductResponse;
-import com.hakancivelek.product_api.dto.UpdateRequestBody;
+import com.hakancivelek.product.dto.CreateProductRequest;
+import com.hakancivelek.product.dto.ProductResponse;
+import com.hakancivelek.product.dto.UpdateRequestBody;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -37,7 +37,7 @@ public interface ProductControllerDocs {
                             examples = @ExampleObject(value = "{\"error\": \"Product not found\"}")))
     })
     @GetMapping("/{id}")
-    EntityModel<ProductResponse> get(@PathVariable String id);
+    EntityModel<ProductResponse> get(@PathVariable Long id);
 
     @Operation(summary = "Get all products", description = "Retrieve all products")
     @ApiResponses(value = {
@@ -72,7 +72,7 @@ public interface ProductControllerDocs {
                             examples = @ExampleObject(value = "{\"error\": \"Product not found\"}")))
     })
     @PutMapping("/{id}")
-    EntityModel<ProductResponse> update(@PathVariable String id, @RequestBody UpdateRequestBody updateRequestBody);
+    EntityModel<ProductResponse> update(@PathVariable Long id, @RequestBody UpdateRequestBody updateRequestBody);
 
     @Operation(summary = "Delete a product", description = "Delete a product by its unique ID")
     @ApiResponses(value = {
@@ -83,7 +83,7 @@ public interface ProductControllerDocs {
                             examples = @ExampleObject(value = "{\"error\": \"Product not found\"}")))
     })
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@PathVariable String id);
+    ResponseEntity<Void> delete(@PathVariable Long id);
 
     default EntityModel<ProductResponse> toModel(ProductResponse product) {
         return EntityModel.of(

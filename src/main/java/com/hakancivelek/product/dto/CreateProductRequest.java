@@ -1,10 +1,8 @@
-package com.hakancivelek.product_api.dto;
+package com.hakancivelek.product.dto;
 
-import com.hakancivelek.product_api.validation.OneOfSkuOrBarcodeRequired;
-import jakarta.validation.Valid;
+import com.hakancivelek.product.validation.OneOfSkuOrBarcodeRequired;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -18,7 +16,6 @@ public record CreateProductRequest(
         @Size(max = 250, message = "Description cannot exceed 250 characters")
         String description,
         String sku,
-        String barcode,
-        @NotNull(message = "Category is required") @Valid CategoryRequest category
+        String barcode
 ) {
 }

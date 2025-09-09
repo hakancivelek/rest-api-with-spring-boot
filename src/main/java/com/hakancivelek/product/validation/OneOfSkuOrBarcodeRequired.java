@@ -1,4 +1,4 @@
-package com.hakancivelek.product_api.validation;
+package com.hakancivelek.product.validation;
 
 import jakarta.validation.Constraint;
 

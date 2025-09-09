@@ -1,4 +1,4 @@
-package com.hakancivelek.product_api.exception;
+package com.hakancivelek.product.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

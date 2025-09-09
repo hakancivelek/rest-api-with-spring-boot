@@ -1,4 +1,4 @@
-package com.hakancivelek.product_api;
+package com.hakancivelek.product;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
