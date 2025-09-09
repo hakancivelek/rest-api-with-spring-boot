@@ -1,0 +1,31 @@
+### GET request to example server
+GET http://localhost:8080/api/products
+
+### POST request to create a new product
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "name": "Togg T10X",
+    "price": 1453,
+    "description": "The first domestic electric car of Turkey.",
+    "barcode": "107114531923",
+    "sku": null
+}
+
+### PUT request to update an existing product
+PUT http://localhost:8080/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Updated Togg T10X",
+  "price": 1918,
+  "description": "The first domestic electric car of Turkey.",
+  "barcode": null,
+  "sku": "107114531923"
+}
+
+### DELETE request to remove a product
+DELETE http://localhost:8080/api/products/1
+
+
