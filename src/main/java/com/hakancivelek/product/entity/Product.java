@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
 
-//Test for git
 @Entity
 @Table(name = "products")
 public class Product {
